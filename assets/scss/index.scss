@@ -1,0 +1,362 @@
+@at-root {
+    @-ms-viewport { width: device-width; } // stylelint-disable-line at-rule-no-vendor-prefix
+}
+
+html {
+    box-sizing: border-box;
+    -ms-overflow-style: scrollbar;
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+}
+body::before {
+    content: '';
+    background-image: url(../images/poligono.svg);
+    background-position: top left;
+    background-size: contain;
+    width: 243px;
+    height: 276px;
+    position: absolute;
+    background-repeat: no-repeat;
+    top: -90px;
+}
+body::after {
+    content: '';
+    background-image: url(../images/pontos.svg);
+    background-position: bottom left;
+    background-size: contain;
+    width: 243px;
+    height: 120px;
+    position: absolute;
+    background-repeat: no-repeat;
+    bottom: 40px;
+    left: 30px;
+}
+section, .container{
+    height: 100%;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+/*
+    FONTES
+*/ 
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+/*
+    VARS
+*/
+$open-sans: 'Open Sans', 'Helvetica', sans-serif;
+
+$darkNavy: #213140;
+$orange: #F5762A;
+$dark-blue: #133244;
+$gold: #B6985A;
+$white: #FFFFFF;
+
+$track-color: #424242;
+$thumb-color: #555bc8;
+
+$thumb-radius: 22px;
+$thumb-height: 22px;
+$thumb-width: 22px;
+$thumb-shadow-size: 1px;
+$thumb-shadow-blur: 1px;
+$thumb-shadow-color: #111;
+$thumb-border-width: 1px;
+$thumb-border-color: white;
+
+$track-width: 100%;
+$track-height: 4px;
+$track-shadow-size: 0px;
+$track-border-width: 1px;
+$track-border-color: #D1D1D1;
+
+$track-radius: 5px;
+$contrast: 5%;
+/* 
+    MIXINS 
+*/
+@mixin focusOutline {outline: dotted 1px #CCC; outline-offset: .45rem;}
+@mixin hideInput {width: 0; height: 0; position: absolute; left: -9999px;}
+@mixin breakpoint($point) {
+	@if $point == 1100 {
+		@media (max-width: 1100px) { @content ; }
+	}
+	@else if $point == 800 {
+		@media (max-width: 800px) { @content ; }
+	}
+}
+/*
+    GERAL
+*/
+span, h1, h2, label, input {
+    font-family: $open-sans;
+}
+.column_unique{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+.perguntas{
+    h1{
+        font-size:58px;
+        font-weight: 600;
+        color: $dark-blue;
+        margin: 0px;
+    }
+    .subtitle{
+        font-weight: 400;
+        font-size: 17px;
+        color: $dark-blue;
+    }
+    label{
+        font-weight: 600;
+        color: $dark-blue;
+        font-size: 17px;
+    }
+}
+
+
+/*
+    STRUCTURE
+*/
+@import "functions";
+@import "variables";
+
+@import "mixins/breakpoints";
+@import "mixins/grid-framework";
+@import "mixins/grid";
+
+@import "grid";
+@import "utilities/display";
+@import "utilities/flex";
+
+.column_unique {
+    height: 100%;
+    align-content: center;
+}
+
+.col-6.resultado.hidden {
+    display: none;
+}
+/*
+    FORMULARIO
+*/
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+
+    input[type="number"] {
+        border: 0px;
+        border-bottom: 1px solid #D1D1D1;
+        font-size: 67px;
+        color: #133244;
+        text-align: center;
+        font-weight: bold;
+    }
+    input[type="number"]:focus {
+        outline: none;
+    }
+    #metros-quadrados, .tempo-imovel{
+        text-align: left!important;
+    }
+    #metros-quadrados {
+        border: none;
+    }
+
+    .toggle {
+        margin: 0 0 1.5rem; box-sizing: border-box;
+        font-size: 0;
+        display: flex; flex-flow: row nowrap;
+        justify-content: flex-start; align-items: stretch;
+        position: absolute; top: 33%; right: 0;
+
+        input {@include hideInput;}
+
+        input + label {
+            margin: 0; padding: .40rem 1rem; box-sizing: border-box;
+            position: relative; display: inline-block;
+            border: 0px;
+            font-size: 1rem; line-height: 140%; font-weight: 400; text-align: center;
+            transition: 	border-color .15s ease-out, 
+                        color .25s ease-out, 
+                        background-color .15s ease-out,
+                        box-shadow .15s ease-out;
+            
+            &:first-of-type {border-radius: 20px; border: none;}
+            &:last-of-type {border-radius: 20px; border: none;}
+        }
+        input:checked + label {
+            background-color: $orange;
+            color: #FFF;
+            z-index: 1;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        input:focus + label {@include focusOutline;}
+    
+        @include breakpoint(800) {
+            input + label {
+                padding: .75rem .25rem;
+                flex: 0 0 50%;
+                display: flex; justify-content: center; align-items: center;
+            }
+        }
+    }
+    
+}
+  
+@mixin track() {
+width: $track-width;
+height: $track-height;
+cursor: pointer;
+animate: 0.2s;
+}
+  
+@mixin thumb() {
+    border: $thumb-border-width solid $thumb-border-color;
+    height: $thumb-height;
+    width: $thumb-width;
+    border-radius: $thumb-radius;
+    background: $thumb-color;
+    cursor: pointer;
+}
+  
+  input[type=range] {
+    -webkit-appearance: none;
+    margin: $thumb-height/2 0;
+    width: $track-width;
+  
+    &:focus {
+      outline: none;
+    }
+  
+    &::-webkit-slider-runnable-track {
+     @include track();
+      background: $track-color;
+      border-radius: $track-radius;
+      border: $track-border-width solid $track-border-color;
+    }
+    
+    &::-webkit-slider-thumb {
+      @include thumb();
+      -webkit-appearance: none;
+      margin-top: ((-$track-border-width * 2 + $track-height) / 2) - ($thumb-height / 2);
+    }
+  
+    &:focus::-webkit-slider-runnable-track {
+      background: lighten($track-color, $contrast);
+    }
+  
+    &::-moz-range-track {
+      @include track();
+      background: $track-color;
+      border-radius: $track-radius;
+       border: $track-border-width solid $track-border-color;
+    }
+    &::-moz-range-thumb {
+        @include thumb();
+    }
+  
+    &::-ms-track {
+      @include track(); 
+      background: transparent;
+      border-color: transparent;
+      border-width: $thumb-width 0;
+      color: transparent;
+    }
+  
+    &::-ms-fill-lower {
+      background: darken($track-color, $contrast);
+      border: $track-border-width solid $track-border-color;
+      border-radius: $track-radius*2;
+    }
+    &::-ms-fill-upper {
+      background: $track-color;
+      border: $track-border-width solid $track-border-color;
+      border-radius: $track-radius*2;
+    }
+    &::-ms-thumb {
+        @include thumb();
+    }
+    &:focus::-ms-fill-lower {
+      background: $track-color;
+    }
+    &:focus::-ms-fill-upper {
+      background: lighten($track-color, $contrast);
+    }
+}
+.calcular_coluna{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .calcular{
+        background-color: $orange;
+        color: $white;
+        width: 80%;
+        float: right;
+        padding: 15px;
+        font-size: 22px;
+        font-weight: bold;
+        border: none;
+        border-radius: 16px;
+        align-self: flex-end;
+        margin-bottom: 30px;
+    }
+}
+.resultado{
+    padding-left: 54px;
+    .total{
+        h2{
+            font-size: 47px;
+            color: $dark-blue;
+            margin: 0;
+        }
+        .total-box {
+            background-color: $orange;
+            width: auto;
+            padding: 15px;
+            float: left;
+            border-radius: 11px;
+            .total_value {
+                width: 100%;
+                float: left;
+                color: #fff;
+                font-size: 41px;
+                font-weight: 600;
+            }
+            .total-mes {
+                color: #fff;
+            }
+        }
+    }
+    .economiza {
+        width: 100%;
+        float: left;
+        margin-top: 20px;
+
+        .economiza-subtitle {
+            font-size: 23px;
+            font-weight: bold;
+            color: #133244;
+            line-height: 24px;
+            padding-top: 3px;
+            float: left;
+        }
+        .economiza-value {
+            color: #F5762A;
+            font-size: 43px;
+            font-weight: bold;
+        }
+    }
+}
+
+/*
+    RESULTADO
+*/

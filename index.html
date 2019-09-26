@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="assets/css/index.css">
+</head>
+<body>
+    <section>
+        <div class="container">
+            <div class="row column_unique">
+                <div class="col-6 perguntas">
+                    <h1>Lorem ipsum</h1>
+                    <span class="subtitle">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</span>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="input-group">
+                                <label>Quantas posições de trabalho você precisa?</label>
+                                <input type="number" id="qtdPosicoes" placeholder="" />
+                            </div>
+                            <div class="input-group">
+                                <label>Quantos M2 você precisa?</label>
+                                <input type="number" id="metros-quadrados" class="range-input">
+                                <input type="range" id="slider" min="10" max="250" step="10"/>
+                            </div>
+                        </div>
+                        <div class="col-6 calcular_coluna">
+                            <div class="input-group">
+                                <label>Quantos meses você ficará no imovel?</label>
+                                <input type="number" class="tempo-imovel" placeholder=""/>
+                                <div class="toggle">
+                                    <input type="radio" name="sizeBy" value="weight" id="sizeWeight" checked="checked" />
+                                    <label for="sizeWeight">Meses</label>
+                                    <input type="radio" name="sizeBy" value="dimensions" id="sizeDimensions" />
+                                    <label for="sizeDimensions">anos</label>
+                                </div>
+                            </div>
+                            <button class="calcular">CALCULAR</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 resultado hidden">
+                    <div class="total">
+                        <h2>TOTAL:</h2>
+                        <div class="total-box">
+                            <div class="row">
+                                <div class="col-3">
+                                    <img src="assets/images/icon-total.svg" />
+                                </div>
+                                <div class="col-8">
+                                    <span class="total_value">R$ 1,275.00</span>
+                                    <span class="total-mes">/mês</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="economiza">
+                        <div class="row">
+                            <div class="col-6">
+                                <span class="economiza-subtitle">Com a Delta BC você economiza mais de:</span>
+                            </div>
+                            <div class="col-6">
+                                <span class="economiza-value">R$ 700.00</span>
+                            </div>
+                        </div>
+                        <div class="grafico">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
